@@ -1,0 +1,22 @@
+{% extends 'testapp/base.html' %}
+{% block base %}
+
+<h1>他のユーザーの情報</h1>
+{% for user in other %}
+<h2>{{user.username}}</h2>
+<p>連絡先：{{user.email}}</p>
+<p>{{user.passward}}</p>
+{% endfor %}
+<p><a href="{% url 'logout'%}">ログアウト</a></p>
+
+<h3>デバッグ</h3>
+{% for i in kgb %}
+<p>{{i}}</p>
+{% endfor %}
+
+<h3>デバッグobj</h3>
+{% for e in obj %}
+<p>{{e}}</p>
+{% endfor %}
+
+{% endblock %}

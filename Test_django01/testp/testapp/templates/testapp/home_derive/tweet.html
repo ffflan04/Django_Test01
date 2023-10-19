@@ -1,0 +1,16 @@
+{% extends 'testapp/home.html' %}
+{% block home %}
+
+<form class="" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{tweet.as_p}}
+    <button type="submit">ツイート</button>
+</form>
+
+<p><a href="http://127.0.0.1:8000/testapp/">閉じる</a></p>
+
+
+{% endblock %}
+
+
+

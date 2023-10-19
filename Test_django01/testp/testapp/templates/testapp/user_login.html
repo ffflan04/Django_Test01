@@ -1,0 +1,14 @@
+{% extends 'testapp/base.html' %}
+{% block base %}
+
+<form class="" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <p><input type="hidden" name="next" value="{{next}}"></p> <!--LoginViewにnextのパラメータを渡します-->
+    <p><input type="submit" value="ログイン"></p>
+</form>
+
+</br>
+<p>パスワードを忘れた馬鹿なお前は -> <a href="{% url 'signup' %}">新規登録</a></p>
+
+{% endblock %}

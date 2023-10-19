@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウェブページじゃ！</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app.css' %}"> <!--外部のcssファイルを読み込みます。-->
+</head>
+<body>
+    <div>
+        {% block base %}{% endblock %}
+    </div>
+</body>
+</html>

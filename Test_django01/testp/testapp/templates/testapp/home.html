@@ -1,0 +1,64 @@
+{% extends 'testapp/base.html' %}
+{% block base %}
+<h1>トップページなのじゃ</h1>
+
+<p><a href="http://127.0.0.1:8000/testapp/mypage"><img class="profile__img" src="{{profile_topuga.image.url}}" alt=""></a></p>
+
+<hr>
+<h3>ログイン中のユーザー</h3>
+
+<p>{{user.username}}</p>
+<p><a href="http://127.0.0.1:8000/testapp/?list=follow">フォロー中：{{ff_num.followed}}</a>  <a href="http://127.0.0.1:8000/testapp/?list=follower">フォロワー数：{{ff_num.follower}}</a></p>
+{% for info in follow_user_info %}
+<p><img class="icon-circle" src="{{info.image.url}}" alt="">{{info.user}}</p>
+{% endfor %}
+{{none_ff}}
+{% if follow_user_info %}
+<p><a href="http://127.0.0.1:8000/testapp/">閉じる</a></p>
+{% endif %}
+
+<hr>
+<h3>タイムライン</h3> <!--コメントデータベースをfor文回します。-->
+{% for tweet in object_list %}
+<a href="http://127.0.0.1:8000/testapp/other_profile/{{tweet.user}}"><img class="icon-circle" src="{{tweet.user_icon.url}}" alt=""></a>
+{{tweet.user}}
+{{tweet.body}}
+{{tweet.time_date}}
+{% if tweet.good_bool %}
+<form action="http://127.0.0.1:8000/testapp/?like={{tweet.pk}}" method="post">
+    {% csrf_token %}
+    <button type="submit">いいね❤️</button>
+</form>
+{% else %}
+<form action="http://127.0.0.1:8000/testapp/?like={{tweet.pk}}" method="post">
+    {% csrf_token %}
+    <button type="submit">いいね♡</button>
+</form>
+{% endif %}
+{{tweet.like}}
+{{tweet.good_bool}}
+<hr>
+{% endfor %}
+
+<hr>
+<p><a href="http://127.0.0.1:8000/testapp/tweet_set">ツイートする!!</a></p>
+{% block home %}{% endblock %}
+
+<hr>
+<p><a href="http://127.0.0.1:8000/admin/">管理者画面へgo!!</a></p>
+
+<hr>
+<h3>デバッグ広場</h3>
+
+
+
+<hr>
+<p><a href="{% url 'logout' %}">ログアウトする</a></p>
+
+<hr>
+<p><a href="http://127.0.0.1:8000/testapp/other">会員情報一覧を見る！</a></p>
+
+
+
+
+{% endblock %}

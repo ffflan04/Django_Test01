@@ -1,0 +1,57 @@
+{% extends 'testapp/base.html' %}
+{% block base %}
+
+<h3>あなたのプロフィールだよ</h3>
+
+<p><img class="profile__img" src="{{topuga.image.url}}" alt=""></p>
+<form action="http://127.0.0.1:8000/testapp/mypage?change=icon" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{choice_icon.as_p}}
+    <button type="submit">トプ画を更新する</button>
+</form>
+
+{% for message in messages %}
+{{message}}
+{{message.tag}}
+{% endfor %}
+
+<p>ユーザーネーム：{{user.username}}</p>
+<p>メールアドレス：{{user.email}}</p>
+<p>パスワード：{{user.password}}</p>
+<p>スーパーユーザ：{{user.is_superuser}}</p>
+<p>最近のログイン：{{user.last_login}}</p>
+<p>アカウント作成日：{{user.date_joined}}</p>
+
+<h3>自己紹介文です。</h3>
+<form action="http://127.0.0.1:8000/testapp/mypage?change=body" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{introduction.as_p}}
+    <button type="submit">更新する</button>
+</form>
+{{DoneUpdate}}
+
+<h3>ツイート</h3>
+<hr>
+{% for object in object_list %}
+<p>{{object.body}}</p>
+<p>{{object.time_date}}</p>
+<p><a href="http://127.0.0.1:8000/testapp/{{object.pk}}/delete">ツイートを削除する</a></p>
+{% empty %}
+<p>データがありません</p>
+<hr>
+{% endfor %}
+
+<hr>
+<h3>お前がいいねしたツイート</h3>
+{% for tweet in tweet_data %}
+<p>{{tweet.body}}</p>
+{% endfor %}
+
+<hr>
+<p><a href="http://127.0.0.1:8000/testapp">ホームに戻る</a></p>
+
+
+
+
+{% endblock %}
+

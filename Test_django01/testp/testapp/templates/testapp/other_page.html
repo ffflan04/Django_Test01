@@ -1,0 +1,39 @@
+{% extends 'testapp/base.html' %}
+{% block base %}
+
+<h3>ユーザーネーム⇩</h3>
+
+<p><img class="profile__img" src="{{mypage_icon.image.url}}" alt=""></p>
+{{the_user}}
+<p><a href="http://127.0.0.1:8000/testapp/directmessage/{{the_user}}">{{the_user}}と個チャする！</a></p>
+
+<p>フォロー数：{{ff_num.followed}}  フォロワー数：{{ff_num.follower}}</p>
+{% if follow_bool.follow_switch %}
+<form action="http://127.0.0.1:8000/testapp/other_profile/{{the_user}}/?count=ff" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit">フォロー中</button>
+</form>
+{% else %}
+<form action="http://127.0.0.1:8000/testapp/other_profile/{{the_user}}/?count=ff" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit">フォローする</button>
+</form>
+{% endif %}
+
+<h3>こいつが書いた自己紹介⇩</h3>
+<hr>
+{{introduction}}
+<hr>
+
+<h3>こいつがしたツイート⇩</h3>
+{% for tweet in user_tweet %}
+<p>{{tweet.body}}</p>
+<p>{{tweet.time_date}}</p>
+{% endfor %}
+
+<hr>
+<p><a href="http://127.0.0.1:8000/testapp/">ホームに戻る</a></p>
+
+
+
+{% endblock %}

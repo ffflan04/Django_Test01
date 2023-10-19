@@ -1,0 +1,38 @@
+{% extends 'testapp/base.html' %}
+{% block base %}
+
+<h3>チャット欄 with {{oneside}}</h3>
+<hr>
+{% for dm in dm_log %}
+{% if dm.send_user == oneside %}
+{% if icon_one.image %}
+<p style="text-align: left"><img class="icon-circle" src="{{icon_one.image.url}}" alt="">{{dm.send_user}}{{dm.body}}{{dm.time_date}}</p>
+{% else %}
+<p style="text-align: left"><img class="icon-circle" src="/media/one.png" alt="">{{dm.send_user}}{{dm.body}}{{dm.time_date}}</p>
+{% endif %}
+{% else %}
+{% if icon_self.image %}
+<p style="text-align: center">{{dm.body}}{{dm.time_date}}<img class="icon-circle" src="{{icon_self.image.url}}" alt=""></p>
+{% else %}
+<p style="text-align: center">{{dm.body}}{{dm.time_date}}<img class="icon-circle" src="/media/one.png" alt=""></p>
+{% endif %}
+{% endif %}
+{% endfor %}
+
+
+
+<hr>
+<h3>メッセージを送る</h3>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{Message_Form.as_p}}
+    <button type='submit'>送信</button>
+</form>
+
+<hr>
+<p><a href="http://127.0.0.1:8000/testapp/">ホームに戻る</a></p>
+
+
+
+
+{% endblock %}
